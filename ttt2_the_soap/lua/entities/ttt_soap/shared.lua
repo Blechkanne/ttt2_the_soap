@@ -1,0 +1,6 @@
+ENT.Type = "anim"
+ENT.Base = "ttt_soap"
+ENT.PrintName = "Seife"
+ENT.Author = "Blechkanne"
+ENT.Purpose = "Zum ausrutschen"
+ENT.Instructions = "Drauflaufen ausrutschen"

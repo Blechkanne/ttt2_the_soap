@@ -33,7 +33,7 @@ if (engine.ActiveGamemode() == "terrortown") then
 	SWEP.CanBuy = { ROLE_TRAITOR, ROLE_JACKAL }
 	SWEP.LimitedStock = true
 	SWEP.Slot = 7
-	SWEP.Icon = "VGUI/icon_soap"
+	SWEP.Icon = "vgui/ttt/icon_soap"
 	SWEP.ViewModelFlip = true
 	SWEP.EquipMenuData = {
 		type = "item_weapon",

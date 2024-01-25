@@ -1,3 +1,8 @@
+CreateConVar("ttt_soap_velocity", "300", {FCVAR_NOTIFY, FCVAR_ARCHIVE, FCVAR_REPLICATED})
+CreateConVar("ttt_soap_scale", "1", {FCVAR_NOTIFY, FCVAR_ARCHIVE, FCVAR_REPLICATED})
+CreateConVar("ttt_soap_kick_props", "0", {FCVAR_NOTIFY, FCVAR_ARCHIVE, FCVAR_REPLICATED})
+CreateConVar("ttt_soap_distance", "80", {FCVAR_NOTIFY, FCVAR_ARCHIVE, FCVAR_REPLICATED})
+
 local distance = GetConVar( "ttt_soap_distance" ):GetInt() or 80
 local soapscale = GetConVar( "ttt_soap_scale" ):GetFloat() or 1
 
@@ -137,10 +142,49 @@ if SERVER then
 	resource.AddFile("materials/models/soap.vtf")
 end
 
-cvars.AddChangeCallback("ttt_soap_distance", function(convar, oldValue, newValue) 
+cvars.AddChangeCallback("ttt_soap_distance", function(convar, oldValue, newValue)
 	distance = tonumber(newValue)
 end )
 
 cvars.AddChangeCallback("ttt_soap_scale", function(convar, oldValue, newValue)
 	soapscale = tonumber(newValue)
 end )
+
+if CLIENT then
+	function SWEP:AddToSettingsMenu(parent)
+		local form = vgui.CreateTTT2Form(parent, "soap_addon_header")
+
+		form:MakeHelp({
+			label = "soap_help_menu"
+		})
+
+		form:MakeCheckBox({
+			label = "label_soap_kick_props",
+			serverConvar = "ttt_soap_kick_props"
+		})
+
+		form:MakeSlider({
+			label = "label_soap_velocity",
+			serverConvar = "ttt_soap_velocity",
+			min = 0,
+			max = 1000,
+			decimal = 0
+		})
+
+		form:MakeSlider({
+			label = "label_soap_distance",
+			serverConvar = "ttt_soap_distance",
+			min = 0,
+			max = 200,
+			decimal = 0
+		})
+
+		form:MakeSlider({
+			label = "label_soap_scale",
+			serverConvar = "ttt_soap_scale",
+			min = 0.5,
+			max = 10,
+			decimal = 1
+		})
+	end
+end

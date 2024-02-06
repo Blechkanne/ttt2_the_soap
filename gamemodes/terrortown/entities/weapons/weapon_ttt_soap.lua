@@ -6,7 +6,7 @@ if SERVER then
     util.PrecacheSound("soap/slip.wav")
 end
 
-SWEP.HoldType = "melee2"
+SWEP.HoldType = "grenade"
 
 if CLIENT then
     SWEP.PrintName = "Soap"
@@ -29,6 +29,9 @@ if CLIENT then
 end
 
 SWEP.Base = "weapon_tttbase"
+
+SWEP.ViewModel = "models/weapons/cstrike/c_eq_fraggrenade.mdl"
+SWEP.WorldModel = "models/soap.mdl"
 
 SWEP.Author = "Blechkanne"
 
@@ -68,14 +71,44 @@ end
 function SWEP:SecondaryAttack() end
 
 if CLIENT then
-    ---
-    -- @realm client
     function SWEP:OnRemove()
         local owner = self:GetOwner()
 
         if IsValid(owner) and owner == LocalPlayer() and owner:IsTerror() then
             RunConsoleCommand("lastinv")
         end
+    end
+
+    function SWEP:InitializeCustomModels()
+        self:AddCustomViewModel("vmodel", {
+            type = "Model",
+            model = "models/soap.mdl",
+            bone = "ValveBiped.Bip01_R_Finger2",
+            rel = "",
+            pos = Vector(1, 2, -1),
+            angle = Angle(90, 80, -10),
+            size = Vector(1.3, 1.3, 1.3),
+            color = Color(255, 255, 255, 255),
+            surpresslightning = false,
+            material = "",
+            skin = 0,
+            bodygroup = {},
+        })
+
+        self:AddCustomWorldModel("wmodel", {
+            type = "Model",
+            model = "models/soap.mdl",
+            bone = "ValveBiped.Bip01_R_Hand",
+            rel = "",
+            pos = Vector(4, 2.5, 0),
+            angle = Angle(110, -20, 0),
+            size = Vector(1.3, 1.3, 1.3),
+            color = Color(255, 255, 255, 255),
+            surpresslightning = false,
+            material = "",
+            skin = 0,
+            bodygroup = {},
+        })
     end
 
     function SWEP:AddToSettingsMenu(parent)

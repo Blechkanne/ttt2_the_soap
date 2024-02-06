@@ -23,6 +23,7 @@ if SERVER then
 
     function ENT:Initialize()
         self:SetModel("models/soap.mdl")
+        self:SetModelScale(1.3)
 
         self.BaseClass.Initialize(self)
 
@@ -47,6 +48,7 @@ if SERVER then
             local velocityNormalized = toucher:GetVelocity():GetNormalized()
             local newVelocity =
                 Vector(velocityNormalized.x, velocityNormalized.y, velocityNormalized.z + 1)
+
             toucher:SetVelocity(newVelocity * cvVelocity:GetInt())
         elseif cvKickProps:GetBool() then
             self:EmitSound(soundSlip)

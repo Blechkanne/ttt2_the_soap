@@ -21,6 +21,17 @@ if SERVER then
 
     local soundSlip = Sound("soap/slip.wav")
 
+    function ENT:Initialize()
+        self:SetModel("models/soap.mdl")
+
+        self.BaseClass.Initialize(self)
+
+        -- enables ENT:Touch
+        self:SetSolidFlags(FSOLID_TRIGGER)
+
+        self:SetHealth(100)
+    end
+
     function ENT:PlayerCanPickupWeapon(activator)
         return self:GetOriginator():GetTeam() == activator:GetTeam()
     end

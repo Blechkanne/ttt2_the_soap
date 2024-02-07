@@ -12,8 +12,8 @@ if CLIENT then
     SWEP.PrintName = "Soap"
     SWEP.Slot = 7
 
-    SWEP.ViewModelFOV = 70
     SWEP.ViewModelFlip = false
+    SWEP.ViewModelFOV = 54
 
     SWEP.UseHands = true
     SWEP.ShowDefaultViewModel = false
@@ -30,7 +30,7 @@ end
 
 SWEP.Base = "weapon_tttbase"
 
-SWEP.ViewModel = "models/weapons/cstrike/c_eq_fraggrenade.mdl"
+SWEP.ViewModel = "models/weapons/cstrike/c_eq_flashbang.mdl"
 SWEP.WorldModel = "models/soap.mdl"
 
 SWEP.Author = "Blechkanne"

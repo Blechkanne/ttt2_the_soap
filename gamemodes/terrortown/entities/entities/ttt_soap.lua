@@ -31,10 +31,19 @@ if SERVER then
         self:SetSolidFlags(FSOLID_TRIGGER)
 
         self:SetHealth(100)
+
+        local mvObject = self:AddMarkerVision("soap_owner")
+        mvObject:SetOwner(self:GetOriginator())
+        mvObject:SetVisibleFor(VISIBLE_FOR_TEAM)
+        mvObject:SyncToClients()
+    end
+
+    function ENT:OnRemove()
+        self:RemoveMarkerVision("soap_owner")
     end
 
     function ENT:PlayerCanPickupWeapon(activator)
-        return self:GetOriginator():GetTeam() == activator:GetTeam()
+        return self:GetOriginator() == activator
     end
 
     function ENT:Touch(toucher)
@@ -63,8 +72,64 @@ if SERVER then
 end
 
 if CLIENT then
-    function ENT:Draw()
-        self:DrawModel()
-        self:CreateShadow()
-    end
+    local TryT = LANG.TryTranslation
+    local ParT = LANG.GetParamTranslation
+
+    local materialSoap = Material("vgui/ttt/marker_vision/soap")
+
+    -- handle looking at C4
+    hook.Add("TTTRenderEntityInfo", "HUDDrawTargetIDSoap", function(tData)
+        local client = LocalPlayer()
+        local ent = tData:GetEntity()
+
+        if
+            not client:IsTerror()
+            or not IsValid(ent)
+            or tData:GetEntityDistance() > 100
+            or ent:GetClass() ~= "ttt_soap"
+            or client:GetTeam() ~= ent:GetOriginator():GetTeam()
+        then
+            return
+        end
+
+        -- enable targetID rendering
+        tData:EnableText()
+        tData:EnableOutline()
+        tData:SetOutlineColor(client:GetRoleColor())
+
+        tData:SetTitle(TryT(ent.PrintName))
+
+        if ent:GetOriginator() == client then
+            tData:SetKeyBinding("+use")
+            tData:SetSubtitle(ParT("target_pickup", { usekey = Key("+use", "USE") }))
+        else
+            tData:AddIcon(materialSoap)
+            tData:SetSubtitle(TryT("target_pickup_disabled"))
+        end
+    end)
+
+    hook.Add("TTT2RenderMarkerVisionInfo", "HUDDrawMarkerVisionSoap", function(mvData)
+        local client = LocalPlayer()
+        local ent = mvData:GetEntity()
+        local mvObject = mvData:GetMarkerVisionObject()
+
+        if not client:IsTerror() or not mvObject:IsObjectFor(ent, "soap_owner") then
+            return
+        end
+
+        local originator = ent:GetOriginator()
+        local nick = IsValid(originator) and originator:Nick() or "---"
+
+        local distance = math.Round(util.HammerUnitsToMeters(mvData:GetEntityDistance()), 1)
+
+        mvData:EnableText()
+
+        mvData:AddIcon(materialSoap)
+        mvData:SetTitle(TryT(ent.PrintName))
+
+        mvData:AddDescriptionLine(ParT("marker_vision_owner", { owner = nick }))
+        mvData:AddDescriptionLine(ParT("marker_vision_distance", { distance = distance }))
+
+        mvData:AddDescriptionLine(TryT(mvObject:GetVisibleForTranslationKey()), COLOR_SLATEGRAY)
+    end)
 end

@@ -9,7 +9,7 @@ end
 SWEP.HoldType = "grenade"
 
 if CLIENT then
-    SWEP.PrintName = "Soap"
+    SWEP.PrintName = "weapon_soap_name"
     SWEP.Slot = 7
 
     SWEP.ViewModelFlip = false
@@ -21,8 +21,8 @@ if CLIENT then
 
     SWEP.EquipMenuData = {
         type = "item_weapon",
-        desc = [[Do not slip!
-		You can pick it back up when pressing the use Button (Default: e)]],
+        name = "weapon_soap_name",
+        desc = "weapon_soap_desc",
     }
 
     SWEP.Icon = "vgui/ttt/icon_melonmine.png"
@@ -71,6 +71,12 @@ end
 function SWEP:SecondaryAttack() end
 
 if CLIENT then
+    function SWEP:Initialize()
+        self:AddTTT2HUDHelp("soap_help_pri")
+
+        self.BaseClass.Initialize(self)
+    end
+
     function SWEP:OnRemove()
         local owner = self:GetOwner()
 

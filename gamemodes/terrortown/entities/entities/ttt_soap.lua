@@ -5,7 +5,7 @@ end
 ENT.Base = "ttt_base_placeable"
 
 if CLIENT then
-    ENT.PrintName = "Seife"
+    ENT.PrintName = "weapon_soap_name"
     ENT.Icon = "vgui/ttt/icon_soap"
 end
 
@@ -44,6 +44,12 @@ if SERVER then
 
     function ENT:PlayerCanPickupWeapon(activator)
         return self:GetOriginator() == activator
+    end
+
+    function ENT:WasDestroyed(pos, dmgInfo)
+        local originator = self:GetOriginator()
+
+        LANG.Msg(originator, "weapon_soap_destroyed", nil, MSG_MSTACK_WARN)
     end
 
     function ENT:Touch(toucher)

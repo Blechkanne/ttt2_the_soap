@@ -13,7 +13,7 @@ if CLIENT then
     SWEP.Slot = 7
 
     SWEP.ViewModelFlip = false
-    SWEP.ViewModelFOV = 54
+    SWEP.ViewModelFOV = 64
 
     SWEP.UseHands = true
     SWEP.ShowDefaultViewModel = false
@@ -53,10 +53,6 @@ SWEP.Secondary.ClipSize = -1
 SWEP.Secondary.DefaultClip = 1
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "none"
-
-function SWEP:GetViewModelPosition(pos, ang)
-    return pos + ang:Forward() * 12 + ang:Right() * 5 - ang:Up() * 6, ang
-end
 
 function SWEP:PrimaryAttack()
     if SERVER and self:CanPrimaryAttack() then

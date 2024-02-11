@@ -1,7 +1,7 @@
 if SERVER then
     AddCSLuaFile()
 
-    resource.AddFile("materials/vgui/ttt/icon_melonmine.png")
+    resource.AddFile("materials/vgui/ttt/.vmt")
 
     util.PrecacheSound("soap/slip.wav")
 end
@@ -25,7 +25,7 @@ if CLIENT then
         desc = "weapon_soap_desc",
     }
 
-    SWEP.Icon = "vgui/ttt/icon_melonmine.png"
+    SWEP.Icon = "vgui/ttt/icon_soap"
 end
 
 SWEP.Base = "weapon_tttbase"

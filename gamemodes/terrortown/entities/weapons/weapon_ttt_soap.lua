@@ -73,14 +73,6 @@ if CLIENT then
         self.BaseClass.Initialize(self)
     end
 
-    function SWEP:OnRemove()
-        local owner = self:GetOwner()
-
-        if IsValid(owner) and owner == LocalPlayer() and owner:IsTerror() then
-            RunConsoleCommand("lastinv")
-        end
-    end
-
     function SWEP:InitializeCustomModels()
         self:AddCustomViewModel("vmodel", {
             type = "Model",

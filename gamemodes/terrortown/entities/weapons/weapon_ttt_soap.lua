@@ -55,6 +55,8 @@ SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "none"
 
 function SWEP:PrimaryAttack()
+    self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
+
     if SERVER and self:CanPrimaryAttack() then
         local soap = ents.Create("ttt_soap")
 

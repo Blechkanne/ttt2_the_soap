@@ -1,5 +1,6 @@
 L = LANG.GetLanguageTableReference("english")
 
+L["soap_addon_header"] = "Soap Settings"
 L["weapon_soap_name"] = "Soap"
 L["weapon_soap_desc"] = "Do not slip! Boosts terrorists that step on it."
 L["weapon_soap_destroyed"] = "Your soap has been destroyed!"

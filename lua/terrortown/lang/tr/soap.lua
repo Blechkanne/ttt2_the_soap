@@ -1,4 +1,4 @@
-L = LANG.GetLanguageTableReference("turkish")
+L = LANG.GetLanguageTableReference("tr")
 
 L["soap_addon_header"] = "Sabun Ayarları"
 L["weapon_soap_name"] = "Sabun"
